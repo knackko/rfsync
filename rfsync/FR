@@ -1,0 +1,112 @@
+menu_item1="Synchroniser saisons"
+menu_item2="n/a"
+menu_item3="Outils"
+menu_item4="Visualisez les modifications"
+menu_item5="EN/FR"
+menu_item6="A propos"
+sync_item1="Trophee interligue"
+sync_item2="Championnat"
+sync_item3="n/a"
+
+# menu_outils
+menuoutil_item1="Creer un zip des logs"
+menuoutil_item2="Editer .plr"
+menuoutil_item3="Editer multiplayer"
+menuoutil_item4="Changer UI"
+
+# UI
+ui_title="Changer UI"
+ui_item1="Xui HD"
+ui_item2="Rfactor"
+
+# basics
+oui="Oui"
+non="Non"
+quitter="Quitter"
+annuler="Annuler"
+continuer="Continuer"
+changer="Changer"
+retour="Retour"
+
+#patiences
+patience="Veuillez Patienter"
+maj1="Recherche de mise a jour rfsync..."
+maj2="Mise a jour rfsync appliquee, redemarrage..."
+mdp1="Verification acces en cours..."
+
+# zip logs
+ziplog_title="Creation zip logs"
+message_logs="L'archive a été créé dans rfsync/ziplogs/:\n"
+
+# messages d'erreur
+erreur_title="Erreur"
+message_erreur1="Echec de synchronisation"
+message_erreur2="Echec de verification de signature"
+message_erreur3="Echec de l'installation du mod"
+message_erreur4="Echec de la détection du profil"
+message_erreur11="Veuillez ne pas installer rfactor directement sous C:, C:/program files et C:/Program Files (x86)"
+message_erreur12="Veuillez arrêter rfactor avant de lancer rfsync"
+
+# realfeel 
+realfeel_title="Gestion plugin RealFeel"
+realfeel1="Activation du plugin RealFeel"
+realfeel2="Desactivation du plugin RealFeel"
+realfeel3="Installation du plugin RealFeel"
+realfeel_etat0="\Zr\Zb\Z0Inactif\Zn"
+realfeel_etat1="Actif"
+realfeel_etat8="\Zr\Zb\Z1Mauvaise version installée\Zn"
+realfeel_etat9="\Zr\Zb\Z1Non installe\Zn"
+realfeel_action0="Activer"
+realfeel_action1="Desactiver"
+realfeel_action8="Installer RealFeel"
+realfeel_action9="Installer"
+
+#changelog
+changelog_title="Affichage changelog"
+changelog1="Recuperation des modifications"
+
+#intro
+intro_title="A propos de ODS Blender et ODSsync2"
+about="
+                               * rfsync *\n\n
+rfsync
+
+"
+
+#verifier_mdp
+mdp_title="Acces"
+mdp_text="Saisissez le mot de passe de synchronisation "
+
+# menu principal
+menu_principal_title="Menu principal"
+menu_principal1="Selectionner une action"
+
+# menu outils
+menu_outil_title="Menu outils"
+menu_outil1="Selectionnez une action"
+menu_outil_plr="Edition du fichier plr du profil "
+menu_outil_multiplayer="Edition du fichier Multiplayer.ini du profil "
+
+# choisir langue
+choisir_langue_title="Choose language/Choisir langue"
+choisir_langue1="Actual language/Langue actuelle: $lang\n\nYou can change language before continue\nVous pouvez changer de langue avant de continuer"
+
+# blender_preinstall
+blender_preinstall_title="Migration du mod HGTTC vers le mod Blender"
+blender_preinstall1="Ni le mod ODS Blender, ni le mod HGTTC v1.95 n'ont été détecté !\n\nVous pouvez lancer la preinstallation et installer ensuite le patch HGTTCv1.95 officiel.\n\n\nVoulez vous lancer la preinstallation?"
+
+# blender_preinstall_done
+blender_preinstall_done1="La preinstallation a ete effectue !\n\n\nVeuillez installer le patch HGTTCv1.95 ou complet avec les packages HGTTC officiels puis relancer ODSsync"
+
+# blender_install
+blender_install1="Le mod HGTTC v1.95 a ete detecte ! \n\n\nL'installation du mod ODS Blender requiere le renommage des repertoires d'HGTTC, l'installation du mod HGTTC ne sera plus utilisable car integree au mod ODS Blender\n\n\nVoulez vous lancer l'installation du mod ODS Blender?"
+
+# blender_install_done
+blender_install_done1="Felicitations, l'installation du mod ODS_Blender a ete effectue !\n\n\nVous devez maintenant synchroniser les donnees d'une ou plusieurs saisons, vous allez etre dirige vers le menu de principal"
+
+# synchroniser
+synchroniser_title="Choix des saisons a synchroniser"
+synchroniser1="Choisissez une ou plusieurs saisons"
+synchro_title="Etat de la synchronisation"
+synchro_reussie_text="Synchronisation reussie !"
+synchro_manquechoix_text="Veuillez cochez au moins une saison a synchroniser !"

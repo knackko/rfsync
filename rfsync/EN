@@ -1,0 +1,126 @@
+menu_item1="Synchronize seasons"
+menu_item2="n/a"
+menu_item3="Tools"
+menu_item4="Display changelog"
+menu_item5="EN/FR"
+menu_item6="About"
+sync_item1="Interleague Trophy"
+sync_item2="Championship"
+sync_item3="n/a"
+
+# menu_outils
+menuoutil_item1="Create archive log"
+menuoutil_item2="Tune plr file"
+menuoutil_item3="Tune multiplayer file"
+menuoutil_item4="Modify UI"
+
+# UI
+ui_title="Modify UI"
+ui_item1="Xui HD"
+ui_item2="Rfactor"
+
+# basics
+oui="Yes"
+non="No"
+quitter="Quit"
+annuler="Cancel"
+continuer="Continue"
+changer="Modify"
+retour="Back"
+
+#patiences
+patience="Please wait"
+maj1="Searching rfsync update..."
+maj2="Rfsync updated, restarting..."
+mdp1="Checking access..."
+
+# zip logs
+ziplog_title="Creation zip logs"
+message_logs="Archive logs created in rfsync/ziplogs/:\n"
+
+# messages d'erreur
+erreur_title="Error"
+message_erreur1="Sync failed"
+message_erreur2="Failed to verify signatures"
+message_erreur3="Failed to install mod"
+message_erreur4="Failed to detect profile"
+message_erreur11="Please, don't install rfactor directly at C:, C:/program files et C:/Program Files (x86)"
+message_erreur12="Please stop all rfactor processes to run rfsync"
+
+# rfe
+rfe_title="RFE plugin"
+rfe1="Activating RFE plugin"
+rfe2="Deactivating RFE plugin"
+rfe3="Installing RFE plugin"
+rfe_etat0="\Zr\Zb\Z0inactive\Zn"
+rfe_etat1="Active"
+rfe_etat8="\Zr\Zb\Z1Bad version installed\Zn"
+rfe_etat9="\Zr\Zb\Z1Not installed\Zn"
+rfe_action0="Activate"
+rfe_action1="Deactivate"
+rfe_action8="Install RFE v1.2"
+rfe_action9="Install"
+
+# realfeel
+realfeel_title="RealFeel plugin"
+realfeel1="Activating RealFeel plugin"
+realfeel2="Deactivating RealFeel plugin"
+realfeel3="Installing RealFeel plugin"
+realfeel_etat0="\Zr\Zb\Z0inactive\Zn"
+realfeel_etat1="Active"
+realfeel_etat8="\Zr\Zb\Z1Bad version installed\Zn"
+realfeel_etat9="\Zr\Zb\Z1Not installed\Zn"
+realfeel_action0="Activate"
+realfeel_action1="Deactivate"
+realfeel_action8="Install RealFeel"
+realfeel_action9="Install"
+
+#changelog
+changelog_title="Displaying changelog"
+changelog1="Getting changelog"
+
+#intro
+intro_title="About rfsync"
+about="
+                               * rfsync *\n\n
+rfsync
+
+"
+
+#verifier_mdp
+mdp_title="Access"
+mdp_text="Enter the synchonization access password "
+
+# menu principal
+menu_principal_title="Main menu"
+menu_principal1="Select an item"
+
+# menu outils
+menu_outil_title="Tools menu"
+menu_outil1="Select an item"
+menu_outil_plr="Edit plr file of the profile "
+menu_outil_multiplayer="Edit file Multiplayer.ini of the profile "
+
+# choisir langue
+choisir_langue_title="Choose language/Choisir langue"
+choisir_langue1="Actual language/Langue actuelle: $lang\n\nYou can change language before continue\nVous pouvez changer de langue avant de continuer"
+
+# blender_preinstall
+blender_preinstall_title="Migrate HGTTC mod to Blender mod"
+blender_preinstall1="Neither Blender mod nor HGTTC v1.95 mod are detected !\n\nDo the pre installation first and then install HGTTCv1.95 (full or patch) with official packages.\n\n\nDo you want to do the pre installation now?"
+
+# blender_preinstall_done
+blender_preinstall_done1="Pre installation done !\n\n\nYou can now install HGTTv1.95 full or patch with official HGTTC packages and then relaunch ODSsync"
+
+# blender_install
+blender_install1="HTTC v1.95 mod detected ! \n\n\nThe migration of HGTTCv1.95 to Blender mod will break current installation of HGTTC. After the migration, the HGTTC mod will not be available anymore as it is imported in Blender mod. \n\n\nDo you want to migrate HGTTCv1.95 to Blender mod now?"
+
+# blender_install
+blender_install_done1="Install of Blender done !\n\n\nYou can synchronize now the game data for one or seasons. Blender mod is available in game under the name: ODS_Blender.\n  You are going to be redirected to the main menu"
+
+# synchroniser
+synchroniser_title="Synchronize"
+synchroniser1="Choose season(s) to synchronize"
+synchro_title="State of sync"
+synchro_reussie_text="Sync successful !"
+synchro_manquechoix_text="Select at least one season to synchronize !"
