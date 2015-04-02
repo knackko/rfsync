@@ -254,12 +254,12 @@ menu_principal(){
 charger_langue
 
 
-case $realfeel in
-0)realfeel_action="$realfeel_etat0 ($realfeel_action0)";;
-1)realfeel_action="$realfeel_etat1 ($realfeel_action1)";;
-8)realfeel_action="$realfeel_etat8 ($realfeel_action8)";;
-9)realfeel_action="$realfeel_etat9 ($realfeel_action9)";;
-esac
+#case $realfeel in
+#0)realfeel_action="$realfeel_etat0 ($realfeel_action0)";;
+#1)realfeel_action="$realfeel_etat1 ($realfeel_action1)";;
+#8)realfeel_action="$realfeel_etat8 ($realfeel_action8)";;
+#9)realfeel_action="$realfeel_etat9 ($realfeel_action9)";;
+#esac
 
 # BEGIN TO FINISH
 #menu_options=`echo "'Sync' '$menu_item1'"`
@@ -282,7 +282,6 @@ $DIALOG --cancel-label "$quitter" --backtitle "$backtitle | $VERSION" \
     --colors --title "$menu_principal_title" --clear \
         --menu "\n\n$menu_principal1" 20 65 7 \
         "Sync" "$menu_item1" \
-        "RealFeel" "$realfeel_action" \
         "Changelog"    "$menu_item4" \
         "Lang"    "$menu_item5"       \
 		"About" "$menu_item6" 2> $tempfile
@@ -297,8 +296,8 @@ case $retval in
         synchroniser;;
     "Addons")
         installer_addons;;
-    "RealFeel")
-        changer_realfeel $realfeel;;
+   # "RealFeel")
+   #     changer_realfeel $realfeel;;
 	"Tools")
 		menu_outils;;
     "Changelog")
@@ -743,5 +742,5 @@ is_rfactor_running=`echo $?`
 if [ $is_rfactor_running -eq 0 ]
 	then rapporter_erreur 12
 fi
-realfeel=`realfeel_etat;echo $?`
+#realfeel=`realfeel_etat;echo $?`
 menu_principal "firsttime"
