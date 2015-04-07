@@ -1,7 +1,7 @@
 rFsync client
 
 ====================================================================================
-A synchronization client for leagues organizing rfactor events&championships. Synchronize one or more "seasons":  a season is 1 mod and 1 or several tracks.
+A synchronization client for leagues organizing rfactor events&championships. Synchronize one or more "seasons":  a season is one mod and one or several tracks.
 
 ====================================================================================
 
