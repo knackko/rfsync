@@ -727,16 +727,6 @@ else
 fi
 mise_a_jour
 
-if [ "$INSTALL_PATH" = "/cygdrive/c" ]
-	then rapporter_erreur 11
-fi
-if [ "$INSTALL_PATH" = "/cygdrive/c/Program Files" ]
-	then rapporter_erreur 13
-fi
-if [ "$INSTALL_PATH" = "/cygdrive/c/Program Files (x86)" ]
-	then rapporter_erreur 13
-fi
-
 ps -aW | grep rFactor.exe 1>/dev/null
 is_rfactor_running=`echo $?`
 if [ $is_rfactor_running -eq 0 ]
