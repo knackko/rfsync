@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>. 
 
-VERSION="rfsync v1.01"
+VERSION="rfsync v1.01 powered by Old Drivers Spirit"
 DIALOG="dialog "
 RSYNC="rsync --timeout=300 --info=name,progress --stats -ztrh "
 RSYNC_SIG="rsync --timeout=300 -ztrh "
