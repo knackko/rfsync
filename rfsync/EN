@@ -83,7 +83,15 @@ changelog1="Getting changelog"
 intro_title="About rfsync"
 about="
                                * rfsync *\n\n
-rfsync
+Developped by knackko, powered by Old Drivers Spirit 
+
+A synchronization client for leagues organizing rfactor events&championships. Synchronize one or more "seasons": a season is one mod and one or several tracks.
+
+Used by Old Drivers Spirit, Simuracing leagues and for the LMC event.
+
+rfsync licence: GPLv3
+
+All infos: https://github.com/knackko/rfsync
 
 "
 
