@@ -1,0 +1,15 @@
+* 17/5/2015 - rfsync 1.01
+- rfactor install in C: or Program files is no more forbidden
+- rfsync/fixperms.bat added: 
+Fix the windows permissions for rfactor directory and all its sub dirs/file
+To be executed as Admnistrator
+
+* 2/4/2015
+- rsync updated to 3.1.1
+- realfeel no more available in rfsync (temporaly?)
+
+* 22/07/2014
+- initial commit on github (https://github.com/knackko/rfsync/)
+
+* 21/05/2014 - rfsync 1.0
+- first version
