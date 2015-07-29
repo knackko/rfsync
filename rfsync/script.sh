@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>. 
 
-VERSION="rfsync v1.01 powered by Old Drivers Spirit"
+VERSION="rfsync v1.02dev"
 DIALOG="dialog "
 RSYNC="rsync --timeout=300 --info=name,progress --stats -ztrh "
 RSYNC_SIG="rsync --timeout=300 -ztrh "
@@ -254,34 +254,54 @@ menu_principal(){
 charger_langue
 
 
-#case $realfeel in
-#0)realfeel_action="$realfeel_etat0 ($realfeel_action0)";;
-#1)realfeel_action="$realfeel_etat1 ($realfeel_action1)";;
-#8)realfeel_action="$realfeel_etat8 ($realfeel_action8)";;
-#9)realfeel_action="$realfeel_etat9 ($realfeel_action9)";;
-#esac
+case $realfeel in
+0)realfeel_action="$realfeel_etat0 ($realfeel_action0)";;
+1)realfeel_action="$realfeel_etat1 ($realfeel_action1)";;
+8)realfeel_action="$realfeel_etat8 ($realfeel_action8)";;
+9)realfeel_action="$realfeel_etat9 ($realfeel_action9)";;
+esac
 
-# BEGIN TO FINISH
-#menu_options=`echo "'Sync' '$menu_item1'"`
+# BEGIN CUSTON MENU
+menu_array=('Sync' "$menu_item1")
 
-#if [ "$enable_menu_addons" = "true" ]
-#then
-#	menu_options="$menu_options 'Addons' $menu_item2"
-#fi
-#if [ "$enable_menu_rfe" = "true" ]
-#then
-#	menu_options="$menu_options 'RFE' $rfe_action"
-#fi
-#if [ "$enable_menu_tools" = "true" ]
-#then
-#	menu_options="$menu_options 'Tools' $menu_item3"
-#fi
-# END TO FINISH
+if [ "$enable_menu_join" = "true" ]
+then
+
+	menu_array[${#menu_array[*]}]='Join'
+	menu_array[${#menu_array[*]}]="$menu_join"
+fi
+
+if [ "$enable_menu_addons" = "true" ]
+then
+	menu_array[${#menu_array[*]}]='Addons'
+	menu_array[${#menu_array[*]}]="$menu_item2"
+fi
+if [ "$enable_menu_rfe" = "true" ]
+then
+
+	menu_array[${#menu_array[*]}]='RFE'
+	menu_array[${#menu_array[*]}]="$rfe_action"
+fi
+if [ "$enable_menu_realfeel" = "true" ]
+then
+
+	menu_array[${#menu_array[*]}]='RealFeel'
+	menu_array[${#menu_array[*]}]="$realfeel_action"
+fi
+if [ "$enable_menu_tools" = "true" ]
+then
+	menu_array[${#menu_array[*]}]='Tools'
+	menu_array[${#menu_array[*]}]="$menu_item3"
+fi
+
+# END CUSTOM MENU
+
 
 $DIALOG --cancel-label "$quitter" --backtitle "$backtitle | $VERSION" \
     --colors --title "$menu_principal_title" --clear \
-        --menu "\n\n$menu_principal1" 20 65 7 \
-        "Sync" "$menu_item1" \
+        --menu "\n\n$menu_principal1" 20 65 9 \
+        "${menu_array[@]}" \
+
         "Changelog"    "$menu_item4" \
         "Lang"    "$menu_item5"       \
 		"About" "$menu_item6" 2> $tempfile
@@ -294,10 +314,12 @@ case $retval in
     case "$choice" in
     "Sync")
         synchroniser;;
+	"Join")
+        joindre;;
     "Addons")
         installer_addons;;
-   # "RealFeel")
-   #     changer_realfeel $realfeel;;
+    "RealFeel")
+        changer_realfeel $realfeel;;
 	"Tools")
 		menu_outils;;
     "Changelog")
@@ -469,6 +491,105 @@ esac
 
 }
 
+joindre(){
+set -x
+		info "Recuperation de la liste des serveurs"
+
+		serverslist=""
+n=0
+for lineserver in $(cat "$CURPATH/conf/serverslist.conf")
+do
+    n=$[n+1]
+	server=`echo $lineserver |  gawk -F':' '{print $2}'`
+	serverslist="$serverslist $n $server"
+done
+servernum=$n
+
+    $DIALOG --ok-label "Joindre" --backtitle "$backtitle | $VERSION" \
+    --title "d$joindre_title" --clear \
+	--cancel-label "$annuler" \
+        --menu "\n\n$synchroniser1" 20 61 7 $serverslist \
+	2> $tempfile
+        retval=$?
+
+    choice=(`cat $tempfile`)
+    case $retval in
+    0)
+		trap 'rapporter_erreur 1 $LINENO $?' ERR		
+		echo "ok"
+		trap - ERR  
+
+    ;;
+  1)
+    menu_principal;;
+  255)
+    menu_principal;;
+	esac
+
+	if [ ${#choice[*]} -ne 0 ]
+	then
+		info "Synchronisation reussie"	
+		$DIALOG --backtitle "$backtitle | $VERSION" \
+			--title "$synchro_title" --clear \
+			--msgbox "\n\n$synchro_reussie_text" 9 40 2> $tempfile
+	else
+		info "Aucun choix de synchronisation"	
+		$DIALOG --backtitle "$backtitle | $VERSION" \
+			--title "$synchro_title" --clear \
+			--msgbox "\n\n$synchro_manquechoix_text" 9 40 2> $tempfile	
+	fi
+	menu_principal
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
 synchroniser(){
 
 # Si premier lancement de loutil de synchro
@@ -502,6 +623,7 @@ else
 	else
 		# On initialise tous les choix a "off"
 		info "Mise a jour seasonslist necessaire"
+
 		for lineseason in $(cat "$CURPATH/conf/seasons.conf")
 		do
 			n=$[n+1]
@@ -544,6 +666,7 @@ seasonnum=$n
 			seasonlist_postsync[$n]="off"
 		done
 		
+
         for item in ${choice[*]}
         do
 			seasonlist_postsync[$item]="on"
@@ -732,5 +855,5 @@ is_rfactor_running=`echo $?`
 if [ $is_rfactor_running -eq 0 ]
 	then rapporter_erreur 12
 fi
-#realfeel=`realfeel_etat;echo $?`
+realfeel=`realfeel_etat;echo $?`
 menu_principal "firsttime"
