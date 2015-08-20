@@ -301,7 +301,6 @@ $DIALOG --cancel-label "$quitter" --backtitle "$backtitle | $VERSION" \
     --colors --title "$menu_principal_title" --clear \
         --menu "\n\n$menu_principal1" 20 65 9 \
         "${menu_array[@]}" \
-
         "Changelog"    "$menu_item4" \
         "Lang"    "$menu_item5"       \
 		"About" "$menu_item6" 2> $tempfile
@@ -492,7 +491,6 @@ esac
 }
 
 joindre(){
-
 	info "Recuperation de la liste des serveurs"
 	serverslist=""
 	n=0
@@ -525,8 +523,15 @@ joindre(){
     case $retval in
     0)
 		cd $RFACTOR_PATH
-		cmd /c start /b ${games_exes_array[${choice[0]}-1]} +connect ${server_ips_array[${choice[0]}-1]}:${server_ports_array[${choice[0]}-1]} +password \"${server_pwds_array[${choice[0]}-1]}\" +fullproc &
-		cd $CURPATH
+		if [ "${server_pwds_array[${choice[0]}-1]}" = "" ]
+		then
+			echo "start /b ${games_exes_array[${choice[0]}-1]} +connect ${server_ips_array[${choice[0]}-1]}:${server_ports_array[${choice[0]}-1]} +fullproc" > "join.bat"
+		else
+			echo "start /b ${games_exes_array[${choice[0]}-1]} +connect ${server_ips_array[${choice[0]}-1]}:${server_ports_array[${choice[0]}-1]} +password \"${server_pwds_array[${choice[0]}-1]}\" +fullproc" > "join.bat"
+		fi
+		echo "exit" >> "join.bat"
+		cmd /C "join.bat"
+		sortir
     ;;
   1)
     menu_principal;;
