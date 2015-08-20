@@ -14,6 +14,9 @@ menuoutil_item2="Tune plr file"
 menuoutil_item3="Tune multiplayer file"
 menuoutil_item4="Modify UI"
 
+#menu_join
+menu_join="Go on track"
+
 # UI
 ui_title="Modify UI"
 ui_item1="Xui HD"
@@ -132,3 +135,7 @@ synchroniser1="Choose season(s) to synchronize"
 synchro_title="State of sync"
 synchro_reussie_text="Sync successful !"
 synchro_manquechoix_text="Select at least one season to synchronize !"
+
+# joindre
+joindre_title="Join the track"
+joindre1="Select the server to join"

@@ -14,6 +14,9 @@ menuoutil_item2="Editer .plr"
 menuoutil_item3="Editer multiplayer"
 menuoutil_item4="Changer UI"
 
+#menu_join
+menu_join="Rejoindre la piste"
+
 # UI
 ui_title="Changer UI"
 ui_item1="Xui HD"
@@ -118,3 +121,7 @@ synchroniser1="Choisissez une ou plusieurs saisons"
 synchro_title="Etat de la synchronisation"
 synchro_reussie_text="Synchronisation reussie !"
 synchro_manquechoix_text="Veuillez cochez au moins une saison a synchroniser !"
+
+# joindre
+joindre_title="Rejoindre la piste"
+joindre1="Selectionner le serveur a rejoindre"

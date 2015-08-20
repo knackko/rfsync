@@ -492,103 +492,50 @@ esac
 }
 
 joindre(){
-set -x
-		info "Recuperation de la liste des serveurs"
 
-		serverslist=""
-n=0
-for lineserver in $(cat "$CURPATH/conf/serverslist.conf")
-do
-    n=$[n+1]
-	server=`echo $lineserver |  gawk -F':' '{print $2}'`
-	serverslist="$serverslist $n $server"
-done
-servernum=$n
+	info "Recuperation de la liste des serveurs"
+	serverslist=""
+	n=0
+	games_exes_array=()
+	server_names_array=()
+	server_ips_array=()
+	server_ports_array=()
+	server_pwds_array=()
+	for lineserver in $(cat "$CURPATH/conf/serverslist.conf")
+	do
+		n=$[n+1]
+		server=`echo $lineserver |  gawk -F':' '{print $2}'`
+		games_exes_array[${#games_exes_array[*]}]=`echo $lineserver |  gawk -F':' '{print $1}'`
+		server_names_array[${#server_names_array[*]}]=$server
+		server_ips_array[${#server_ips_array[*]}]=`echo $lineserver |  gawk -F':' '{print $3}'`
+		server_ports_array[${#server_ports_array[*]}]=`echo $lineserver |  gawk -F':' '{print $4}'`
+		server_pwds_array[${#server_pwds_array[*]}]=`echo $lineserver |  gawk -F':' '{print $5}'`
+		serverslist="$serverslist $n $server"
+	done
+	servernum=$n
 
     $DIALOG --ok-label "Joindre" --backtitle "$backtitle | $VERSION" \
-    --title "d$joindre_title" --clear \
+    --title "$joindre_title" --clear \
 	--cancel-label "$annuler" \
-        --menu "\n\n$synchroniser1" 20 61 7 $serverslist \
+        --menu "\n\n$joindre1" 20 61 7 $serverslist \
 	2> $tempfile
         retval=$?
 
     choice=(`cat $tempfile`)
     case $retval in
     0)
-		trap 'rapporter_erreur 1 $LINENO $?' ERR		
-		echo "ok"
-		trap - ERR  
-
+		cd $RFACTOR_PATH
+		cmd /c start /b ${games_exes_array[${choice[0]}-1]} +connect ${server_ips_array[${choice[0]}-1]}:${server_ports_array[${choice[0]}-1]} +password \"${server_pwds_array[${choice[0]}-1]}\" +fullproc &
+		cd $CURPATH
     ;;
   1)
     menu_principal;;
   255)
     menu_principal;;
 	esac
-
-	if [ ${#choice[*]} -ne 0 ]
-	then
-		info "Synchronisation reussie"	
-		$DIALOG --backtitle "$backtitle | $VERSION" \
-			--title "$synchro_title" --clear \
-			--msgbox "\n\n$synchro_reussie_text" 9 40 2> $tempfile
-	else
-		info "Aucun choix de synchronisation"	
-		$DIALOG --backtitle "$backtitle | $VERSION" \
-			--title "$synchro_title" --clear \
-			--msgbox "\n\n$synchro_manquechoix_text" 9 40 2> $tempfile	
-	fi
-	menu_principal
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
+
+
 
 synchroniser(){
 
@@ -623,6 +570,7 @@ else
 	else
 		# On initialise tous les choix a "off"
 		info "Mise a jour seasonslist necessaire"
+		n=0
 
 		for lineseason in $(cat "$CURPATH/conf/seasons.conf")
 		do
