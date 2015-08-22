@@ -522,7 +522,7 @@ joindre(){
     choice=(`cat $tempfile`)
     case $retval in
     0)
-		cd $RFACTOR_PATH
+		cd "$RFACTOR_PATH"
 		if [ "${server_pwds_array[${choice[0]}-1]}" = "" ]
 		then
 			echo "start /b ${games_exes_array[${choice[0]}-1]} +connect ${server_ips_array[${choice[0]}-1]}:${server_ports_array[${choice[0]}-1]} +fullproc" > "join.bat"
