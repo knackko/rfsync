@@ -543,7 +543,6 @@ joindre(){
 
 
 synchroniser(){
-
 # Si premier lancement de loutil de synchro
 if ! [ -f "$CURPATH/tmp/seasonssync" ]
 then
@@ -576,7 +575,6 @@ else
 		# On initialise tous les choix a "off"
 		info "Mise a jour seasonslist necessaire"
 		n=0
-
 		for lineseason in $(cat "$CURPATH/conf/seasons.conf")
 		do
 			n=$[n+1]
@@ -618,27 +616,68 @@ seasonnum=$n
 			n=$[n+1]
 			seasonlist_postsync[$n]="off"
 		done
-		
 
-        for item in ${choice[*]}
+		echo ""
+		echo "********************************************************************************"
+		echo "************   Downloading mods and tracks description files   *****************"
+		echo "********************************************************************************"	
+		
+       for item in ${choice[*]}
         do
 			seasonlist_postsync[$item]="on"
-			info "Synchronisation choix $item"
+			info "Preparation synchronisation choix $item"
 			seasonline=`gawk -v line="$item" 'NR == line' "$CURPATH/conf/seasons.conf"`
-			moddir=`echo $seasonline | gawk -F':' '{print $2}'`
-			modfile=`echo $seasonline | gawk -F':' '{print $3}'`
-			tracksfile=`echo $seasonline | gawk -F':' '{print $4}'`
-			addonfiles=`echo $seasonline | gawk -F':' '{print $5}'`
-			addondir=`echo $addonfiles | gawk -F'.addon' '{print $1}'`
+			modfile=`echo $seasonline | gawk -F':' '{print $2}'`
+			moddir=`echo $modfile | gawk -F'-' '{print $1}'`
+			tracksfile=`echo $seasonline | gawk -F':' '{print $3}'`
+			addonfiles=`echo $seasonline | gawk -F':' '{print $4}'`
+			addondir=`echo $addonfiles | gawk -F'.addon' '{print $5}'`
 			info "modfile: $modfile , moddir: $moddir, tracksfile: $tracksfile, addonfiles: $addonfiles"
-			$RSYNC --delete-during --log-file=$LOG_RSYNC --files-from=:Packs/$tracksfile rsync://$rsyncd_host:/$rsyncd_module/tracks "$RFACTOR_PATH/Gamedata/Locations/"
-			$RSYNC --delete-during --log-file=$LOG_RSYNC --files-from=:Packs/$modfile rsync://$rsyncd_host:/$rsyncd_module/mods/$moddir "$RFACTOR_PATH"
-			if [ "$addonfiles" != "" ]
-			then
-				$RSYNC --log-file=$LOG_RSYNC --files-from=:Addons/$addonfiles rsync://$rsyncd_host:/$rsyncd_module/addons/$addondir "$RFACTOR_PATH"
-			fi
+
+			$RSYNC_SIG rsync://$rsyncd_host:/$rsyncd_module/Packs/$tracksfile "$CURPATH/tmp/"
+			$RSYNC_SIG rsync://$rsyncd_host:/$rsyncd_module/Packs/$modfile "$CURPATH/tmp/"		
+			
+			echo "" > tmp/$moddir.temp_modfiles
+			
+#			if [ "$addonfiles" != "" ]
+#			then
+#				$RSYNC --log-file=$LOG_RSYNC --files-from=:Addons/$addonfiles rsync://$rsyncd_host:/$rsyncd_module/addons/$addondir "$RFACTOR_PATH"
+#			fi
         done
+
+		echo "" > "$CURPATH/tmp/track.temp_trackfiles"
+		track_packs=`ls -1 tmp/*.tracks | tr -d '\r'`
+		for track_pack in $track_packs;do
+			cat $track_pack >> tmp/track.temp_trackfiles
+			echo "" >> "$CURPATH/tmp/track.temp_trackfiles"
+		done
 		
+		mod_packs=`ls -1 tmp/*.mod | tr -d '\r'`
+		for mod_pack in $mod_packs;do
+			moddir=`echo $mod_pack | gawk -F'-' '{print $1}'`
+			cat $mod_pack >> $moddir.temp_modfiles
+			echo "" >> $moddir.temp_modfiles
+		done
+		
+	
+		/bin/sort.exe -u tmp/track.temp_trackfiles | grep '[^[:blank:]]' > tmp/track.trackfiles
+		/bin/sort.exe -u $moddir.temp_modfiles | grep '[^[:blank:]]' > $moddir.modfiles
+		
+		echo ""
+		echo "********************************************************************************"
+		echo "*****************   Checking and updating tracks  ******************************"
+		echo "********************************************************************************"		
+		$RSYNC --delete-during --log-file=$LOG_RSYNC --files-from=tmp/track.trackfiles rsync://$rsyncd_host:/$rsyncd_module/tracks "$RFACTOR_PATH/Gamedata/Locations/"
+		
+		echo ""		
+		echo "********************************************************************************"
+		echo "*****************   Checking and updating mods   *******************************"
+		echo "********************************************************************************"
+		mods=`ls -1 tmp/*.modfiles | tr -d '\r'`
+		for mod in $mods;do
+			moddir=`echo $mod | gawk -F'.' '{print $1}' | gawk -F'/' '{print $2}'`
+			$RSYNC --delete-during --log-file=$LOG_RSYNC --files-from=$mod rsync://$rsyncd_host:/$rsyncd_module/mods/$moddir "$RFACTOR_PATH"		
+		done
 	
 		for n in ${seasonlist_postsync[@]:1}
 		do
