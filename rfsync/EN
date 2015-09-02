@@ -4,9 +4,6 @@ menu_item3="Tools"
 menu_item4="Display changelog"
 menu_item5="EN/FR"
 menu_item6="About"
-sync_item1="Interleague Trophy"
-sync_item2="Championship"
-sync_item3="n/a"
 
 # menu_outils
 menuoutil_item1="Create archive log"
@@ -16,11 +13,6 @@ menuoutil_item4="Modify UI"
 
 #menu_join
 menu_join="Go on track"
-
-# UI
-ui_title="Modify UI"
-ui_item1="Xui HD"
-ui_item2="Rfactor"
 
 # basics
 oui="Yes"
@@ -115,19 +107,6 @@ menu_outil_multiplayer="Edit file Multiplayer.ini of the profile "
 # choisir langue
 choisir_langue_title="Choose language/Choisir langue"
 choisir_langue1="Actual language/Langue actuelle: $lang\n\nYou can change language before continue\nVous pouvez changer de langue avant de continuer"
-
-# blender_preinstall
-blender_preinstall_title="Migrate HGTTC mod to Blender mod"
-blender_preinstall1="Neither Blender mod nor HGTTC v1.95 mod are detected !\n\nDo the pre installation first and then install HGTTCv1.95 (full or patch) with official packages.\n\n\nDo you want to do the pre installation now?"
-
-# blender_preinstall_done
-blender_preinstall_done1="Pre installation done !\n\n\nYou can now install HGTTv1.95 full or patch with official HGTTC packages and then relaunch ODSsync"
-
-# blender_install
-blender_install1="HTTC v1.95 mod detected ! \n\n\nThe migration of HGTTCv1.95 to Blender mod will break current installation of HGTTC. After the migration, the HGTTC mod will not be available anymore as it is imported in Blender mod. \n\n\nDo you want to migrate HGTTCv1.95 to Blender mod now?"
-
-# blender_install
-blender_install_done1="Install of Blender done !\n\n\nYou can synchronize now the game data for one or seasons. Blender mod is available in game under the name: ODS_Blender.\n  You are going to be redirected to the main menu"
 
 # synchroniser
 synchroniser_title="Synchronize"

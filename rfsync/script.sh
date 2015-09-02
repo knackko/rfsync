@@ -34,14 +34,9 @@ cd ../
 INSTALL_PATH=`pwd`
 cd "$CURPATH"
 
-sync_state1="OFF"
-sync_state2="OFF"
-ui_state1="ON"
-ui_state2="OFF"
 lang=EN
 MD5_UPDATE=""
 UPDATE_ENABLE=1 # set to 0 in params file if needed by dev
-UI="HD"
 
 export RSYNC_PASSWORD="na"
 export LOGNAME="syncuser"
@@ -418,8 +413,7 @@ $DIALOG --cancel-label "$retour" --backtitle "$backtitle | $VERSION" \
         --menu "\n\n$menu_outil1" 20 61 7 \
         "Ziplog"  "$menuoutil_item1" \
         "Plr"    "$menuoutil_item2" \
-		"Multiplayer" "$menuoutil_item3" \
-		"UI" "$menuoutil_item4" 2> $tempfile
+		"Multiplayer" "$menuoutil_item3" 2> $tempfile
 
 retval=$?
 
@@ -477,48 +471,6 @@ case $retval in
 
 			gawk -F '"'  -v val="$value1" '/Concurrent Server Updates/ { sub($2, val); print; next}1' "$last_multiplayer" > "tmp/$drivername_multi.1"
 			mv "tmp/$drivername_multi.1" "$last_multiplayer"
-			menu_outils;;
-		  1)
-			menu_outils;;
-		  255)
-			menu_outils;;
-		esac	
-		;;
-	"UI")
-		$DIALOG --ok-label "Synchroniser" --backtitle "$backtitle | $VERSION" \
-		--title "$ui_title" --clear \
-		--cancel-label "$annuler" \
-			--radiolist "\n\n$ui" 20 61 5 \
-			"1" "$ui_item2" "ON" \
-		2> $tempfile
-			retval=$?
-		#"1" "$ui_item1" "$ui_state1" \
-		
-		choice=(`cat $tempfile`)
-		case $retval in
-		0)
-			trap 'rapporter_erreur 1 $LINENO $?' ERR
-			ui_state1="OFF"
-			ui_state2="OFF"
-			for item in ${choice[*]}
-			do
-				case $item in
-				1)
-					info "Choix UI rfactor"
-					ui_state2="ON"
-					UI="RFACTOR"
-					$RSYNC --log-file=$LOG_RSYNC --files-from=:Addons/ui_rfactor.addons rsync://$rsyncd_host:/$rsyncd_module/addons/ui_rfactor "$RFACTOR_PATH"				
-					;;
-			#	2)
-			#		info "Choix UI HD"
-			#		ui_state1="ON"
-			#		UI="HD"
-			#		# UI sur 1: HD
-			#		$RSYNC --log-file=$LOG_RSYNC --files-from=:Addons/ui_hd.addons rsync://$rsyncd_host:/$rsyncd_module/addons/ui_hd "$RFACTOR_PATH"
-			#		;;
-
-				esac
-			done
 			menu_outils;;
 		  1)
 			menu_outils;;
@@ -780,16 +732,11 @@ seasonnum=$n
 
 sauver_prefs(){
 	info "Sauvegarde des prefs"
-	declare -p sync_state1 > "$CURPATH/params"
-	declare -p sync_state2 >> "$CURPATH/params"
-	declare -p ui_state1 >> "$CURPATH/params"
-	declare -p ui_state2 >> "$CURPATH/params"
 	declare -p lang >> "$CURPATH/params"
 	declare -p RSYNC_PASSWORD >> "$CURPATH/params"
 	declare -p LOGNAME >> "$CURPATH/params"
 	declare -p MD5_UPDATE >> "$CURPATH/params"
 	declare -p UPDATE_ENABLE >> "$CURPATH/params"
-	declare -p UI >> "$CURPATH/params"
 }
     
 installer_addons(){

@@ -4,9 +4,6 @@ menu_item3="Outils"
 menu_item4="Visualisez les modifications"
 menu_item5="EN/FR"
 menu_item6="A propos"
-sync_item1="Trophee interligue"
-sync_item2="Championnat"
-sync_item3="n/a"
 
 # menu_outils
 menuoutil_item1="Creer un zip des logs"
@@ -16,11 +13,6 @@ menuoutil_item4="Changer UI"
 
 #menu_join
 menu_join="Rejoindre la piste"
-
-# UI
-ui_title="Changer UI"
-ui_item1="Xui HD"
-ui_item2="Rfactor"
 
 # basics
 oui="Oui"
@@ -83,7 +75,7 @@ changelog_title="Affichage changelog"
 changelog1="Recuperation des modifications"
 
 #intro
-intro_title="A propos de ODS Blender et ODSsync2"
+intro_title="A propos de rfsync"
 about="
                                * rfsync *\n\n
 Developped by knackko, powered by Old Drivers Spirit 
@@ -115,19 +107,6 @@ menu_outil_multiplayer="Edition du fichier Multiplayer.ini du profil "
 # choisir langue
 choisir_langue_title="Choose language/Choisir langue"
 choisir_langue1="Actual language/Langue actuelle: $lang\n\nYou can change language before continue\nVous pouvez changer de langue avant de continuer"
-
-# blender_preinstall
-blender_preinstall_title="Migration du mod HGTTC vers le mod Blender"
-blender_preinstall1="Ni le mod ODS Blender, ni le mod HGTTC v1.95 n'ont été détecté !\n\nVous pouvez lancer la preinstallation et installer ensuite le patch HGTTCv1.95 officiel.\n\n\nVoulez vous lancer la preinstallation?"
-
-# blender_preinstall_done
-blender_preinstall_done1="La preinstallation a ete effectue !\n\n\nVeuillez installer le patch HGTTCv1.95 ou complet avec les packages HGTTC officiels puis relancer ODSsync"
-
-# blender_install
-blender_install1="Le mod HGTTC v1.95 a ete detecte ! \n\n\nL'installation du mod ODS Blender requiere le renommage des repertoires d'HGTTC, l'installation du mod HGTTC ne sera plus utilisable car integree au mod ODS Blender\n\n\nVoulez vous lancer l'installation du mod ODS Blender?"
-
-# blender_install_done
-blender_install_done1="Felicitations, l'installation du mod ODS_Blender a ete effectue !\n\n\nVous devez maintenant synchroniser les donnees d'une ou plusieurs saisons, vous allez etre dirige vers le menu de principal"
 
 # synchroniser
 synchroniser_title="Choix des saisons a synchroniser"
