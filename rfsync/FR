@@ -64,6 +64,20 @@ realfeel_action1="Desactiver"
 realfeel_action8="Installer RealFeel"
 realfeel_action9="Installer"
 
+# rfe
+rfe_title="Gestion plugin RFE"
+rfe1="Activation du plugin RFE"
+rfe2="Desactivation du plugin RFE"
+rfe3="Installation du plugin RFE"
+rfe_etat0="\Zr\Zb\Z0Inactif\Zn"
+rfe_etat1="Actif"
+rfe_etat8="\Zr\Zb\Z1Mauvaise version installée\Zn"
+rfe_etat9="\Zr\Zb\Z1Non installe\Zn"
+rfe_action0="Activer"
+rfe_action1="Desactiver"
+rfe_action8="Installer RFE v1.2"
+rfe_action9="Installer"
+
 #changelog
 changelog_title="Affichage changelog"
 changelog1="Recuperation des modifications"

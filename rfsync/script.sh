@@ -70,6 +70,7 @@ fi
 #fi
 #trap - ERR  
 realfeel=""
+rfe=""
 
 rapporter_erreur(){
 	code_erreur=$1
@@ -250,16 +251,86 @@ realfeel_etat(){
 	fi
 }
 
+changer_rfe(){
+	case $1 in
+	0) 
+		info "Activation RFE"
+		$DIALOG --backtitle "$backtitle                              $VERSION" \
+		--title "$rfe_title" \
+		--infobox "\n$rfe1" 5 61 2> $tempfile
+		mv "$RFACTOR_PATH/Plugins/RFETire.dll.bak" "$RFACTOR_PATH/Plugins/RFETire.dll"
+		mv "$RFACTOR_PATH/Plugins/RFETrack.dll.bak" "$RFACTOR_PATH/Plugins/RFETrack.dll"
+		mv "$RFACTOR_PATH/Plugins/RFEWeather.dll.bak" "$RFACTOR_PATH/Plugins/RFEWeather.dll"
+	;;
+	1)	
+		info "Desactivation RFE"
+		$DIALOG --backtitle "$backtitle                              $VERSION" \
+		--title "$rfe_title" \
+		--infobox "\n$rfe2" 5 61 2> $tempfile
+		mv "$RFACTOR_PATH/Plugins/RFETire.dll" "$RFACTOR_PATH/Plugins/RFETire.dll.bak"
+		mv "$RFACTOR_PATH/Plugins/RFETrack.dll" "$RFACTOR_PATH/Plugins/RFETrack.dll.bak"
+		mv "$RFACTOR_PATH/Plugins/RFEWeather.dll" "$RFACTOR_PATH/Plugins/RFEWeather.dll.bak"
+	;;
+	[8-9])
+		info "Installation RFE"
+		$DIALOG --backtitle "$backtitle                              $VERSION" \
+		--title "$rfe_title" \
+		--infobox "\n$rfe3" 5 61 2> $tempfile
+		$RSYNC_SIG --log-file=$LOG_RSYNC --files-from=:Packs/RFE.sync rsync://$rsyncd_host:/$rsyncd_module/mods/ODS_Blender "$RFACTOR_PATH"
+	;;
+	esac
+	rfe=`rfe_etat;echo $?`
+	menu_principal
+}
+rfe_etat(){
+	#verifier_signature '4.md5'
+	if [ -f "$RFACTOR_PATH/Plugins/RFETire.dll"  ] && [ -f "$RFACTOR_PATH/Plugins/RFETire.dll"  ] && [ -f "$RFACTOR_PATH/Plugins/RFEWeather.dll" ]
+	then
+		is_rfe12=`verifier_signature '4.md5'; echo $? `
+		if [ "$is_rfe12" -eq 0 ]
+		then
+			info "RFE 1.2 actif"
+			return 1
+		else
+			error "RFE mauvaise version"
+			return 8
+		fi
+	else
+		if [ -f "$RFACTOR_PATH/Plugins/RFETire.dll.bak"  ] && [ -f "$RFACTOR_PATH/Plugins/RFETire.dll.bak"  ] && [ -f "$RFACTOR_PATH/Plugins/RFEWeather.dll.bak" ]
+		then
+			info "RFE inactif"
+			return 0
+		else
+			info "RFE non installe"
+			return 9
+		fi
+	fi
+}
+
 menu_principal(){
 charger_langue
 
 
-case $realfeel in
-0)realfeel_action="$realfeel_etat0 ($realfeel_action0)";;
-1)realfeel_action="$realfeel_etat1 ($realfeel_action1)";;
-8)realfeel_action="$realfeel_etat8 ($realfeel_action8)";;
-9)realfeel_action="$realfeel_etat9 ($realfeel_action9)";;
-esac
+
+if [ "$enable_menu_realfeel" = "true" ]
+then
+	case $realfeel in
+		0)realfeel_action="$realfeel_etat0 ($realfeel_action0)";;
+		1)realfeel_action="$realfeel_etat1 ($realfeel_action1)";;
+		8)realfeel_action="$realfeel_etat8 ($realfeel_action8)";;
+		9)realfeel_action="$realfeel_etat9 ($realfeel_action9)";;
+	esac
+fi
+
+if [ "$enable_menu_rfe" = "true" ]
+then
+	case $rfe in
+		0)rfe_action="$rfe_etat0 ($rfe_action0)";;
+		1)rfe_action="$rfe_etat1 ($rfe_action1)";;
+		8)rfe_action="$rfe_etat8 ($rfe_action8)";;
+		9)rfe_action="$rfe_etat9 ($rfe_action9)";;
+	esac
+fi
 
 # BEGIN CUSTON MENU
 menu_array=('Sync' "$menu_item1")
@@ -319,6 +390,8 @@ case $retval in
         installer_addons;;
     "RealFeel")
         changer_realfeel $realfeel;;
+    "RFE")
+        changer_rfe $rfe;;
 	"Tools")
 		menu_outils;;
     "Changelog")
@@ -539,8 +612,6 @@ joindre(){
     menu_principal;;
 	esac
 }
-
-
 
 synchroniser(){
 # Si premier lancement de loutil de synchro
@@ -848,4 +919,5 @@ if [ $is_rfactor_running -eq 0 ]
 	then rapporter_erreur 12
 fi
 realfeel=`realfeel_etat;echo $?`
+rfe=`rfe_etat;echo $?`
 menu_principal "firsttime"
