@@ -732,7 +732,7 @@ seasonnum=$n
 
 sauver_prefs(){
 	info "Sauvegarde des prefs"
-	declare -p lang >> "$CURPATH/params"
+	declare -p lang > "$CURPATH/params"
 	declare -p RSYNC_PASSWORD >> "$CURPATH/params"
 	declare -p LOGNAME >> "$CURPATH/params"
 	declare -p MD5_UPDATE >> "$CURPATH/params"
