@@ -215,7 +215,7 @@ changer_realfeel(){
 		$DIALOG --backtitle "$backtitle | $VERSION" \
 		--title "$realfeel_title" \
 		--infobox "\n$realfeel3" 5 61 2> $tempfile
-		$RSYNC_SIG --log-file=$LOG_RSYNC --files-from=:Packs/realfeel.addon rsync://$rsyncd_host:/$rsyncd_module/addons/realfeel "$RFACTOR_PATH"
+		$RSYNC_SIG --log-file=$LOG_RSYNC --files-from=:Packs/realfeel.sync rsync://$rsyncd_host:/$rsyncd_module/addons/realfeel "$RFACTOR_PATH"
 	;;
 	esac
 	realfeel=`realfeel_etat;echo $?`
@@ -271,7 +271,7 @@ changer_rfe(){
 		$DIALOG --backtitle "$backtitle                              $VERSION" \
 		--title "$rfe_title" \
 		--infobox "\n$rfe3" 5 61 2> $tempfile
-		$RSYNC_SIG --log-file=$LOG_RSYNC --files-from=:Packs/RFE.sync rsync://$rsyncd_host:/$rsyncd_module/mods/ODS_Blender "$RFACTOR_PATH"
+		$RSYNC_SIG --log-file=$LOG_RSYNC --files-from=:Packs/RFE.sync rsync://$rsyncd_host:/$rsyncd_module/addons/rfe "$RFACTOR_PATH"
 	;;
 	esac
 	rfe=`rfe_etat;echo $?`
