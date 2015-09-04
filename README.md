@@ -10,6 +10,8 @@ A free rfactor synchronization tool for
 - rfsync tool is updated automatically: drivers have not to install it at each update
 - add/delete seasons (season=tracks+mod) as you wish
 - protect content with a passworded access to rfsync client
+- you are independent with rFsync: no dependency with other services, no authorization to get and rfsync client updates are not mandatory: you decide!
+- you can contribute to rFsync: it is under GPLv3 licence
 
 * The drivers:
 - easily installs tracks and mods content
