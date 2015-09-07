@@ -52,18 +52,6 @@ then
 	. "$CURPATH/conf/server.conf"
 fi
 
-# recuperation du pilote actif dans l'installation
-# TO FINISH
-#trap 'rapporter_erreur 4 $LINENO $?' ERR
-#plrfiles=`/bin/find.exe "$RFACTOR_PATH/UserData/" -type f -name "*.plr" -o -name "*.PLR"`
-#if [ -n "$plrfiles" ]
-#then
-#	last_plr=`ls -1rt "$plrfiles" | tail -n 1 | tr -d '\r'`
-#	plr_filename=`echo ${last_plr##*/}`
-#	drivername=`echo ${plr_filename%%.*}`
-#	last_multiplayer="$RFACTOR_PATH/UserData/$drivername/Multiplayer.ini"
-#fi
-#trap - ERR  
 realfeel=""
 rfe=""
 
@@ -407,6 +395,17 @@ esac
 }
 
 menu_outils(){
+
+# recuperation du pilote actif dans l'installation
+trap 'rapporter_erreur 4 $LINENO $?' ERR
+last_plr=`/bin/find.exe "$RFACTOR_PATH/UserData/" -type f -name "*.plr" -o -name "*.PLR" -exec ls -1rt {} \; | tail -n 1 | tr -d '\r'`
+if [ -n "$last_plr" ]
+then
+	plr_filename=`echo ${last_plr##*/}`
+	drivername=`echo ${plr_filename%%.*}`
+	last_multiplayer="$RFACTOR_PATH/UserData/$drivername/Multiplayer.ini"
+fi
+trap - ERR 
 
 $DIALOG --cancel-label "$retour" --backtitle "$backtitle | $VERSION" \
     --colors --title "$menu_outil_title" --clear \
