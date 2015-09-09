@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>. 
 
-VERSION="rfsync v1.02dev"
+VERSION="rfsync v1.1"
 DIALOG="dialog "
 RSYNC="rsync --timeout=300 --info=name,progress --stats -ztrh "
 RSYNC_SIG="rsync --timeout=300 -ztrh "
@@ -457,7 +457,7 @@ case $retval in
 		;;
     "Multiplayer")
         dialog --backtitle "$backtitle | $VERSION" \
-		--cancel-label "$retour" --title "$menu_outil_title" \
+		--cancel-label "$retour" --title "$menu_outil_title" --colors \
 		--form "\n$menu_outil_multiplayer" 25 80 16 \
 		"Concurrent Server Updates (1000):" 1 1 "`gawk -F '=' '/Concurrent Server Updates/ { print $2 }' "$last_multiplayer" | gawk -F '"' '{ print $2 }'`" 1 35 5 4 2>/tmp/form.1
 		
