@@ -812,7 +812,9 @@ mise_a_jour()
 			besoin_maj_seasons=`md5sum -c "$CURPATH/tmp/seasons.md5" --strict --status; echo $? `
 			$RSYNC_SIG --log-file=$LOG_RSYNC rsync://$rsyncd_host:/$rsyncd_module/rfsync/conf/server.conf ./conf/server.conf
 			besoin_maj_server=`md5sum -c "$CURPATH/tmp/server.md5" --strict --status; echo $? `
-			if [ "$besoin_maj_script" -eq 0 ]  && [ "$besoin_maj_seasons" -eq 0 ] && [ "$besoin_maj_server" -eq 0 ]
+			$RSYNC_SIG --log-file=$LOG_RSYNC rsync://$rsyncd_host:/$rsyncd_module/rfsync/conf/serverslist.conf ./conf/serverslist.conf
+			besoin_maj_serverslist=`md5sum -c "$CURPATH/tmp/serverslist.md5" --strict --status; echo $? `
+			if [ "$besoin_maj_script" -eq 0 ]  && [ "$besoin_maj_seasons" -eq 0 ] && [ "$besoin_maj_server" -eq 0 ] && [ "$besoin_maj_serverslist" -eq 0 ]
 			then
 				info "Mise a jour non necessaire"
 			else
@@ -825,6 +827,7 @@ mise_a_jour()
 				md5sum "$CURPATH/script.sh" > "$CURPATH/tmp/script.md5"
 				md5sum "$CURPATH/conf/seasons.conf" > "$CURPATH/tmp/seasons.md5"
 				md5sum "$CURPATH/conf/server.conf" > "$CURPATH/tmp/server.md5"
+				md5sum "$CURPATH/conf/serverslist.conf" > "$CURPATH/tmp/serverslist.md5"
 				sauver_prefs
 				"$RFACTOR_PATH/rfsync/script.sh"
 				exit
@@ -837,6 +840,7 @@ mise_a_jour()
 			md5sum "$CURPATH/script.sh" > "$CURPATH/tmp/script.md5"
 			md5sum "$CURPATH/conf/seasons.conf" > "$CURPATH/tmp/seasons.md5"
 			md5sum "$CURPATH/conf/server.conf" > "$CURPATH/tmp/server.md5"
+			md5sum "$CURPATH/conf/serverslist.conf" > "$CURPATH/tmp/serverslist.md5"
 			sauver_prefs
 			"$RFACTOR_PATH/rfsync/script.sh"
 			exit
