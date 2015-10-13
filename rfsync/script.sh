@@ -643,6 +643,8 @@ seasonnum=$n
 		echo "********************************************************************************"
 		echo "************   Downloading mods and tracks description files   *****************"
 		echo "********************************************************************************"	
+		rm -f tmp/*.tracks
+		rm -f tmp/*.mod
 		
        for item in ${choice[*]}
         do
