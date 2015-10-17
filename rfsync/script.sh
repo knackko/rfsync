@@ -828,6 +828,14 @@ mise_a_jour()
 				md5sum "$CURPATH/conf/seasons.conf" > "$CURPATH/tmp/seasons.md5"
 				md5sum "$CURPATH/conf/server.conf" > "$CURPATH/tmp/server.md5"
 				md5sum "$CURPATH/conf/serverslist.conf" > "$CURPATH/tmp/serverslist.md5"
+				
+				# suppression seasonsync suite a maj seasons.conf
+				if [ "$besoin_maj_seasons" -ne 0 ]
+				then
+					rm -f "$CURPATH/tmp/seasonssync"
+					info "Suppression tmp/seassonsync sur maj seasons.conf"
+				fi
+				
 				sauver_prefs
 				"$RFACTOR_PATH/rfsync/script.sh"
 				exit
