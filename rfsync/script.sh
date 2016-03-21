@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>. 
 
-VERSION="rfsync v1.1"
+VERSION="rfsync v1.13"
 DIALOG="dialog "
 RSYNC="rsync --timeout=300 --info=name,progress --stats -ztrh "
 RSYNC_SIG="rsync --timeout=300 -ztrh "
@@ -591,6 +591,10 @@ else
 		do
 			n=$[n+1]
 			seasonlist_sync[$n]="$lineseason_sync"
+			if [ "$lineseason_sync" = "" ]
+			then
+				seasonlist_sync[$n]="off"
+			fi
 		done
 		seasonnum_sync=$n
 	else
@@ -615,7 +619,12 @@ for lineseason in $(cat "$CURPATH/conf/seasons.conf")
 do
     n=$[n+1]
 	season=`echo $lineseason |  gawk -F':' '{print $1}'`
-	seasonlist="$seasonlist $n $season ${seasonlist_sync[$n]}"
+	season_sync="${seasonlist_sync[$n]}"
+	if [ "${seasonlist_sync[$n]}" = "" ]
+	then
+		season_sync="off"
+	fi
+	seasonlist="$seasonlist $n $season $season_sync"
 done
 seasonnum=$n
 
@@ -630,6 +639,15 @@ seasonnum=$n
     case $retval in
     0)
 		trap 'rapporter_erreur 1 $LINENO $?' ERR
+
+		if [ ${#choice[*]} -eq 0 ]
+		then
+			info "Aucun choix de synchronisation"	
+			$DIALOG --backtitle "$backtitle | $VERSION" \
+				--title "$synchro_title" --clear \
+				--msgbox "\n\n$synchro_manquechoix_text" 9 40 2> $tempfile	
+			synchroniser
+		fi	
 		
 		seasonlist_postsync=""
 		n=0
@@ -645,6 +663,12 @@ seasonnum=$n
 		echo "********************************************************************************"	
 		rm -f tmp/*.tracks
 		rm -f tmp/*.mod
+		rm -f tmp/*.temp_modfiles
+		rm -f tmp/*.temp_trackfiles
+		rm -f tmp/*.temp_modfiles
+		rm -f tmp/*.modfiles
+		rm -f tmp/*.trackfiles
+		
 		
        for item in ${choice[*]}
         do
